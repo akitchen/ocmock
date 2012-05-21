@@ -6,6 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		49658750155730690080F3E1 /* OCMock-iOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 49658751155730690080F3E1 /* Build configuration list for PBXAggregateTarget "OCMock-iOS" */;
+			buildPhases = (
+				496587541557309C0080F3E1 /* Build Static Libs */,
+				49658755155730D20080F3E1 /* Create Universal Binary */,
+				49658756155731310080F3E1 /* Copy Headers */,
+			);
+			dependencies = (
+			);
+			name = "OCMock-iOS";
+			productName = "OCMock-iOS";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		030EF0B614632FD000B04273 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 030EF0B414632FD000B04273 /* InfoPlist.strings */; };
 		030EF0C214632FD000B04273 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030EF0C114632FD000B04273 /* SenTestingKit.framework */; };
@@ -121,6 +137,12 @@
 		03E6F05F152FA8E20079EAF7 /* OCClassMockRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 03E6F05C152FA8E20079EAF7 /* OCClassMockRecorder.h */; };
 		03E6F060152FA8E20079EAF7 /* OCClassMockRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E6F05D152FA8E20079EAF7 /* OCClassMockRecorder.m */; };
 		03E6F061152FA8E20079EAF7 /* OCClassMockRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E6F05D152FA8E20079EAF7 /* OCClassMockRecorder.m */; };
+		491AEB4D1557435C00E03EDC /* NSNotificationCenter+OCMAdditions.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 03B31589146333BF0052CD09 /* NSNotificationCenter+OCMAdditions.h */; };
+		49658757155731DC0080F3E1 /* OCMock.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 030EF0B814632FD000B04273 /* OCMock.h */; };
+		49658758155731DC0080F3E1 /* OCMockObject.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 03B3159D146333BF0052CD09 /* OCMockObject.h */; };
+		49658759155731DC0080F3E1 /* OCMockRecorder.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 03B3159F146333BF0052CD09 /* OCMockRecorder.h */; };
+		4965875A155731DC0080F3E1 /* OCMArg.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 03B3158D146333BF0052CD09 /* OCMArg.h */; };
+		4965875B155731DC0080F3E1 /* OCMConstraint.h in Copy Headers */ = {isa = PBXBuildFile; fileRef = 03B31593146333BF0052CD09 /* OCMConstraint.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +154,25 @@
 			remoteInfo = OCMock;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		49658756155731310080F3E1 /* Copy Headers */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
+			dstSubfolderSpec = 0;
+			files = (
+				491AEB4D1557435C00E03EDC /* NSNotificationCenter+OCMAdditions.h in Copy Headers */,
+				49658757155731DC0080F3E1 /* OCMock.h in Copy Headers */,
+				49658758155731DC0080F3E1 /* OCMockObject.h in Copy Headers */,
+				49658759155731DC0080F3E1 /* OCMockRecorder.h in Copy Headers */,
+				4965875A155731DC0080F3E1 /* OCMArg.h in Copy Headers */,
+				4965875B155731DC0080F3E1 /* OCMConstraint.h in Copy Headers */,
+			);
+			name = "Copy Headers";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030EF0A814632FD000B04273 /* OCMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OCMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -619,6 +660,7 @@
 				030EF0A714632FD000B04273 /* OCMock */,
 				030EF0BF14632FD000B04273 /* OCMockTests */,
 				030EF0DB14632FF700B04273 /* OCMockLib */,
+				49658750155730690080F3E1 /* OCMock-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -668,6 +710,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Unpack frameworks required for this target\npushd \"${TARGET_BUILD_DIR}\"\nif [ ! -d Frameworks ]; then\nmkdir Frameworks\nfi\ncd Frameworks\nif [ ! -d  OCHamcrest.framework ]; then\ngnutar xjf \"${PROJECT_DIR}/Frameworks/OCHamcrest.tar.bz2\"\nfi\npopd\n";
+		};
+		496587541557309C0080F3E1 /* Build Static Libs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Static Libs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphonesimulator -target ${PROJECT_NAME}Lib -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphoneos -target ${PROJECT_NAME}Lib -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos\n";
+		};
+		49658755155730D20080F3E1 /* Create Universal Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create Universal Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\" &&\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" &&\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\" &&\nUNIVERSAL_LIBRARY_PATH=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}\" &&\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}.framework\" &&\n\n# Create framework directory structure.\nrm -rf \"${FRAMEWORK}\" &&\nmkdir -p \"${UNIVERSAL_LIBRARY_DIR}\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Headers\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Resources\" &&\n\n# Generate universal binary for the device and simulator.\nlipo \"${SIMULATOR_LIBRARY_PATH}\" \"${DEVICE_LIBRARY_PATH}\" -create -output \"${UNIVERSAL_LIBRARY_PATH}\" &&\n\n# Move files to appropriate locations in framework paths.\ncp \"${UNIVERSAL_LIBRARY_PATH}\" \"${FRAMEWORK}/Versions/A\" &&\nln -s \"A\" \"${FRAMEWORK}/Versions/Current\" &&\nln -s \"Versions/Current/Headers\" \"${FRAMEWORK}/Headers\" &&\nln -s \"Versions/Current/Resources\" \"${FRAMEWORK}/Resources\" &&\nln -s \"Versions/Current/${PRODUCT_NAME}\" \"${FRAMEWORK}/${PRODUCT_NAME}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -919,6 +989,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Debug;
 		};
@@ -941,6 +1012,21 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7 i386";
+			};
+			name = Release;
+		};
+		49658752155730690080F3E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		49658753155730690080F3E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -979,6 +1065,15 @@
 			buildConfigurations = (
 				030EF0E614632FF700B04273 /* Debug */,
 				030EF0E714632FF700B04273 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49658751155730690080F3E1 /* Build configuration list for PBXAggregateTarget "OCMock-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49658752155730690080F3E1 /* Debug */,
+				49658753155730690080F3E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
